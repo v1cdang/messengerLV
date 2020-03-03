@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Resources\Employee as EmployeeResource;
+use App\Employee;
 
 class EmployeeController extends Controller
 {
@@ -60,5 +62,16 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $department_id
+     * @return \Illuminate\Http\Response
+     */
+    public function getByDepartment($department_id)
+    {
+        return Employee::department()->with('department_id')->get();
     }
 }

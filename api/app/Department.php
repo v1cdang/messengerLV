@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     public function company() {
-        return $this->belongsTo('App\Company');
+        return $this->belongsTo('App\Company','company_id','id');
     }
     public function employee() {
-        return $this->hasMany('App\Employee');
+        return $this->hasMany('App\Employee', 'department_id', 'id');
     }
 }
