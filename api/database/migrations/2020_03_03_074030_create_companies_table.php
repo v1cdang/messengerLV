@@ -13,8 +13,8 @@ class CreateCompaniesTable extends Migration
      */
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('company', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('company_name');
         });
     }

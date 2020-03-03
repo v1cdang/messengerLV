@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Resources\Department as DepartmentResource;
+use App\Http\Resources\Employee as EmployeeResource;
 use App\Department;
+use App\Employee;
+
 
 class DepartmentController extends Controller
 {
@@ -25,6 +28,11 @@ class DepartmentController extends Controller
     public function show($id)
     {
         return new DepartmentResource(Department::FindOrFail($id));
+    }
+    public function getByDepartment($department_id)
+    {
+        $employees = Employee::where('department_id', $department_id);
+        return $employees->get();
     }
 
 }

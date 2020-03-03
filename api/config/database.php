@@ -51,7 +51,7 @@ return [
             'database' => env('DB_DATABASE', 'messenger'),
             'username' => env('DB_USERNAME', 'victest'),
             'password' => env('DB_PASSWORD', 'victest'),
-            'unix_socket' => env('DB_SOCKET', ''),
+            'unix_socket' => env('DB_SOCKET', '/Applications/MAMP/tmp/mysql/mysql.sock'),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',

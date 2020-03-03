@@ -22,8 +22,4 @@ class EmployeeController extends Controller
         return new EmployeeResource(Employee::FindOrFail($id));
     }
 
-    public function getByDepartment($department_id)
-    {
-        return Employee::with('department_id')->find($department_id);
-    }
 }

@@ -15,5 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/employee/getByDepartment/{department_id}','EmployeeController@getByDepartment');
+Route::get('/department/getByDepartment/{department_id}',['uses'=>'DepartmentController@getByDepartment']);
 
