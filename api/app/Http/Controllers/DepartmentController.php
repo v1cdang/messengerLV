@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Department as DepartmentResource;
 use App\Http\Resources\Employee as EmployeeResource;
 use App\Department;
-use App\Company;
+use App\Companies;
 use App\Employee;
 
 
@@ -30,12 +30,12 @@ class DepartmentController extends Controller
     {
         return new DepartmentResource(Department::FindOrFail($id));
     }
-    public function getByDepartment($department_id)
+    public function getEmployeesByDepartment($department_id)
     {
         $employees = Department::find($department_id)->employee;
         return $employees;
     }
-    public function getByCompany($company_id)
+    public function getByCompanyId($company_id)
     {
         $department = Department::find($company_id)->company;
         return $department;
