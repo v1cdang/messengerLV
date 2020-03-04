@@ -35,27 +35,26 @@
 
     <v-content>
       <v-container
-        class="fill-height"
         fluid
       >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col class="text-center">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">Company Name</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="company in companies" v-bind:key="company">
-                  <td>{{ company.id }}</td>
-                  <td>{{ company.company_name }}</td>
-                </tr>
-              </tbody>
-            </table>
+        <v-row align="left">
+          <v-col cols="12" sm="6">
+            <v-select
+              label="Company"
+              v-model="companies"
+              :items="companies"
+              item-text='company_name'
+              item-value='id'
+              outlined
+            ></v-select>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-select
+            :items="filteredData"
+            label="Select an option"
+            item-text ="name"
+            item-value = "name"
+            ></v-select>
           </v-col>
         </v-row>
       </v-container>
@@ -79,7 +78,8 @@ import axios from "axios";
     data () {
       return {
         loading: false,
-        companies: null
+        companies: null,
+        department: null
       }
     },
     mounted () {
@@ -88,7 +88,12 @@ import axios from "axios";
         .get('http://127.0.0.1:8000/api/companies')
         .then(response => (this.companies = response.data.data))
         .catch(error => console.log(error))
-        .finally(() => this.loading = false)
-    }
+        .finally(() => this.loading = false);
+      axios
+        .get('http://127.0.0.1:8000/api/department')
+        .then(response => (this.department = response.data.data))
+        .catch(error => console.log(error))
+        .finally(() => this.loading = false);
+    },
   }
 </script>
