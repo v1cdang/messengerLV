@@ -50,10 +50,12 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-select
-            :items="filteredData"
-            label="Select an option"
-            item-text ="name"
-            item-value = "name"
+              label="Department"
+              v-model="department"
+              :items="department"
+              item-text='department_name'
+              item-value='id'
+              outlined
             ></v-select>
           </v-col>
         </v-row>
@@ -77,6 +79,7 @@ import axios from "axios";
     },
     data () {
       return {
+        drawer: false,
         loading: false,
         companies: null,
         department: null
