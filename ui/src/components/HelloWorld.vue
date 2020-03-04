@@ -45,6 +45,7 @@
               :items="companies"
               item-text='company_name'
               item-value='id'
+              v-on:change="getDepartmentByCompany()"
               outlined
             ></v-select>
           </v-col>
@@ -92,11 +93,15 @@ import axios from "axios";
         .then(response => (this.companies = response.data.data))
         .catch(error => console.log(error))
         .finally(() => this.loading = false);
+      
+    },
+    getDepartmentByCompany() {
+
       axios
-        .get('http://127.0.0.1:8000/api/department')
+        .get('http://127.0.0.1:8000/companies/getDepartmentByCompany/' + this.companies.id)
         .then(response => (this.department = response.data.data))
         .catch(error => console.log(error))
         .finally(() => this.loading = false);
-    },
+    }
   }
 </script>
