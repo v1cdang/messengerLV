@@ -16,4 +16,9 @@ class CompaniesController extends Controller
     {
         return new CompaniesResource(Companies::all());
     }
+    public function getByCompany($company_id)
+    {
+        $employees = Companies::find($company_id)->employee;
+        return $employees;
+    }
 }

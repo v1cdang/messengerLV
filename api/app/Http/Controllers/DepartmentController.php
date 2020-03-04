@@ -31,8 +31,8 @@ class DepartmentController extends Controller
     }
     public function getByDepartment($department_id)
     {
-        $employees = Employee::where('department_id', $department_id);
-        return $employees->get();
+        $employees = Department::find($department_id)->employee;
+        return $employees;
     }
 
 }

@@ -16,4 +16,5 @@ Route::get('/', function () {
 });
 
 Route::get('/department/getByDepartment/{department_id}',['uses'=>'DepartmentController@getByDepartment']);
+Route::get('/companies/getByCompany/{company_id}',['uses'=>'CompaniesController@getByCompany']);
 

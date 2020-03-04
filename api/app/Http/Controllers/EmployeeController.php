@@ -7,10 +7,16 @@ use App\Employee;
 
 class EmployeeController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return new EmployeeResource(Employee::all());
     }
+
    /**
      * Display the specified resource.
      *
@@ -20,6 +26,28 @@ class EmployeeController extends Controller
     public function show($id)
     {
         return new EmployeeResource(Employee::FindOrFail($id));
+    }
+
+    /**
+     * Display a listing of the resource by department_id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getByDepartment($department_id)
+    {
+        $employees = Employee::with('department_id');
+        return $employees->get();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getByCompany($company_id)
+    {
+        $employees = Employee::with('company_id');
+        return $employees->get();
     }
 
 }
