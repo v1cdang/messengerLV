@@ -71,9 +71,19 @@
               v-model="employees"
               :items="employees"
               item-text='name'
+              v-on:change="showEmployeeContact()"
               outlined
               ></v-select>
           </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="6">
+            Phone number
+          </v-col>
+          <v-col cols="12" sm="6">
+            Email
+          </v-col>
+
         </v-row>
         <v-row>
           <v-col cols="12" sm="12">
@@ -116,6 +126,7 @@ import axios from "axios";
         companies: [],
         department: [],
         employees: [],
+        employeeList: null,
         searchInput: ""
       }
     },
@@ -144,9 +155,14 @@ import axios from "axios";
         let self = this;
         axios
           .get('http://127.0.0.1:8000/employees/getAllWithCompandDept/' + self.companies + '/' + self.department)
-          .then(response => (this.employees = response.data))
+          .then(response => (this.employees = this.employeeList =  response.data))
           .catch(error => console.log(error))
           .finally(() => this.loading = false);
+      },
+      showEmployeeContact: function() {
+        let data = this.employeeList;
+        let employeeContact = data.filter(d => d.name = this.employees)
+        console.log(employeeContact)
       }
     },
     created: function(){
