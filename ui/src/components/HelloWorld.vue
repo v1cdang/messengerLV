@@ -37,7 +37,10 @@
       <v-container
         fluid
       >
-        <v-row align="left">
+      <v-form
+        ref="form"
+      >
+        <v-row>
           <v-col cols="12" sm="6">
             <v-select
               label="Company"
@@ -56,10 +59,38 @@
               :items="department"
               item-text='department_name'
               item-value='id'
+              v-on:change="getEmployeesByCompandDept()"
               outlined
             ></v-select>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col cols="12" sm="12">
+            <v-select 
+              label="Employees"
+              v-model="employees"
+              :items="employees"
+              item-text='name'
+              outlined
+              ></v-select>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="12">
+            <v-textarea
+              outlined
+              name="message"
+              label="Enter your message"
+            ></v-textarea>
+          </v-col>
+        </v-row>
+        <v-row ali>
+          <v-col cols="12" sm="12" >
+            <v-btn class="mr-4" @click="submit">submit</v-btn>
+            <v-btn @click="clear">clear</v-btn>
+          </v-col>
+        </v-row>
+      </v-form>
       </v-container>
     </v-content>
     <v-footer
@@ -82,26 +113,45 @@ import axios from "axios";
       return {
         drawer: false,
         loading: false,
-        companies: null,
-        department: null
+        companies: [],
+        department: [],
+        employees: [],
+        searchInput: ""
       }
     },
     mounted () {
       this.loading = true;
-      axios
+      
+      
+    },
+    methods: {
+      getAllCompany: function() {
+        axios
         .get('http://127.0.0.1:8000/api/companies')
         .then(response => (this.companies = response.data.data))
         .catch(error => console.log(error))
         .finally(() => this.loading = false);
-      
+      },
+      getDepartmentByCompany: function() {
+        let self = this;
+        axios
+          .get('http://127.0.0.1:8000/companies/getDepartmentByCompany/' + self.companies)
+          .then(response => (this.department = response.data))
+          .catch(error => console.log(error))
+          .finally(() => this.loading = false);
+      },
+      getEmployeesByCompandDept: function() {
+        let self = this;
+        axios
+          .get('http://127.0.0.1:8000/employees/getAllWithCompandDept/' + self.companies + '/' + self.department)
+          .then(response => (this.employees = response.data))
+          .catch(error => console.log(error))
+          .finally(() => this.loading = false);
+      }
     },
-    getDepartmentByCompany() {
-
-      axios
-        .get('http://127.0.0.1:8000/companies/getDepartmentByCompany/' + this.companies.id)
-        .then(response => (this.department = response.data.data))
-        .catch(error => console.log(error))
-        .finally(() => this.loading = false);
+    created: function(){
+      this.getAllCompany();
     }
+    
   }
 </script>

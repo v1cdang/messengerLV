@@ -50,4 +50,10 @@ class EmployeeController extends Controller
         return $employees->get();
     }
 
+    public function getByCompanyAndDepartment($company_id, $department_id)
+    {
+        $employees = Employee::where(['company_id' => $company_id, 'department_id' => $department_id]);
+        return $employees->get();
+    }
+
 }

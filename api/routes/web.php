@@ -20,4 +20,7 @@ Route::get('/department/getEmployeesByDepartment/{department_id}',['uses'=>'Depa
 Route::get('/companies/getDepartmentByCompany/{company_id}',['uses'=>'CompaniesController@getDepartmentByCompany']);
 //get employees by company
 Route::get('/companies/getEmployeesByCompany/{company_id}',['uses'=>'CompaniesController@getByCompany']);
-
+//send the message
+Route::get('/send/email', 'MessagesController@mail');
+//get employees with company and dept id
+Route::get('/employees/getAllWithCompandDept/{company_id}/{department_id}', ['uses' => 'EmployeeController@getByCompanyAndDepartment']);
